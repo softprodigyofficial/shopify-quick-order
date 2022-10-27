@@ -1,0 +1,134 @@
+
+ {% comment %}
+This file can be added as a snippet and add it anywhere you want to display
+{% endcomment %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" defer></script>
+<span class="open_fillter">
+        <img src="assets/logo-purple.svg" width="20" height="20">
+       
+    </span>
+    <section class="fillter_case popup_fillter">
+        <span class="fillter_overlay"></span>
+        <div class="fillter_case_popup">
+
+            <div class="col-md-12 col-sm-3 col-xs-4">
+                <div class="move_button">
+                    <button id="moveback" class="history-button back" disabled>move back</button>
+                      <span class="close_popup">
+                {{ "close.svg" | asset_url | img_tag }}
+                </span>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-7 col-xs-4 search_bar">
+                 <form id="productsearch" action="/search" method="get" _lpchecked="1">
+            
+            <input id="search_text" type="text" name="q" placeholder="Search" autocomplete="off">
+            <input type="hidden" name="options[price_max]" value="400" />
+            </div>
+            <div class="col-md-3 col-sm-2 col-xs-4">
+              
+                <button class="search_btn">search</button>
+            </div>
+        </form>
+            <div id="notification_div"></div>
+            
+          <div id="product_shopify_div"></div>
+        </div>
+        <div class="fillter_pop">
+
+            <div class="containers">
+          
+
+                <div id="filterdiv" class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Filter
+                                    By
+                                    Price</a>
+                                 {{ "down.svg" | asset_url | img_tag }}
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                            <div class="body_content">
+                            <p>Choose a price range to search in </p>
+                            <div class="flex_row">
+                                <span class="price-range-field ">
+                                    <label>From</label>
+                                    <input type="number" min="0" id="price_range_from">
+                                </span>
+
+                                <span class="price-range-field ">
+                                    <label>To</label>
+                                    <input type="number" min="0" id="price_range_to">
+                                </span>
+                            </div>
+                          <button id="search_btn_apply" class="search_btn apply_btn">Apply Filter</button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">filter
+                                    by product Vendors</a>
+                               
+                                {{ "down.svg" | asset_url | img_tag }}
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+<div class="body_content">
+{% for product_vendor in shop.vendors %}   
+  
+
+                            <label class="contain">
+                              {{product_vendor}}
+                                <input type="checkbox" name="product_vendor[]" id="{{ collection.id }}" value="{{product_vendor}}">
+                                <span class="checkmark"></span>
+
+                            </label>
+              {% endfor %}             
+                           
+                            </div>
+                             <button class="search_btn apply_btn">Apply Filter</button>
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+               <button class="search_btn clear_apply_btn" onclick="clearfilter()">Clear Filters</button>
+            </div>
+
+
+
+           
+        </div>
+    </section>
+
+
+{% schema %}
+  {
+    "name": "Quick order app",
+    "target": "section",
+    "stylesheet": "quickorder1.css",
+    "javascript": "quickorder.js",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Quick order app"
+      },
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description",
+        "default": "App for disable perosn make them buy on shop easily."
+      }
+      
+    ]
+  }
+{% endschema %}
+
